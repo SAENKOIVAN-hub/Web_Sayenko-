@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" placeholder="Введіть чсило" id="input">
+    <input type="button" id="button" value="Відправити на сервер"></input>
+    <p id="p"></p>
+    <script>
+        document.getElementById("button").addEventListener("click", async function(){
+            let number = document.getElementById("input").value
+            await fetch("http://localhost:3000/transform", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ num: number })
+            })
+            .then(data => data.json())
+            .then(result => document.getElementById("p").innerText = `Результат: ${result.sum}`)
+        })
+    </script>
+</body>
+</html>
